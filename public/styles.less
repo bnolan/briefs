@@ -1,0 +1,125 @@
+@grey: #89A490;
+@pale: #BFD9C6;
+@dark: #664625;
+@bright: #FFF1CC;
+@accent: #F38B5E;
+
+body{
+  background-color: @pale;
+  background-image: url('pattern.png');
+  background-repeat: repeat-x;
+  background-position: 0 -50px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+*{
+  box-sizing: border-box;
+}
+
+.app{
+  max-width: 800px;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+}
+
+.boxen {
+  background: white;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 2px;
+  box-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+}
+
+section:first-child {
+  width: 200px;
+}
+
+section:last-child{
+  flex: 1;
+
+  .new-post, .posts{
+    .boxen();
+  }
+}
+
+// Header
+header{
+  .boxen();
+  text-align: center;
+
+  img {
+    width: 64px;
+  }
+
+  span{
+    margin-top: -10px;
+    display: block;
+    color: #333;
+  }
+}
+
+// New post
+
+.new-post{
+  text-align: right;
+
+  textarea{
+    font: inherit;
+    width: 100%;
+    height: 40px;
+    padding: 8px;
+  }
+
+  button{
+    font: inherit;
+  }
+}
+
+.auth{
+  font-size: 0.9em;
+
+  .tabs {
+    margin: 0 0 0 10px;
+    padding: 0;
+
+    li { 
+      margin: 0 4px 0 0;
+      padding: 8px;
+      background: white;
+      display: inline-block; 
+      list-style: none;
+      background: lighten(@pale, 10%);
+    }
+
+    li.active{
+      background: white;
+    }
+  }
+
+  form {
+    .boxen();
+    margin-top: 0;
+
+    label{
+      display: block;
+      color: #555;
+      font-weight: bold;
+      font-size: 0.9em;
+      margin-bottom: 4px;
+    }
+
+    input{
+      margin-bottom: 8px;
+      font: inherit;
+      width: 100%;
+    }
+
+    small{
+      color: #aaa;
+      margin-bottom: 10px;
+      display: block;
+    }
+  }
+}
+
