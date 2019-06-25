@@ -79,3 +79,13 @@ $$
     updated_at timestamp
   );
 $$);
+
+SELECT apply_migration('add_post_length_constraint',
+$$
+  delete from posts where length(content) = 0;
+
+  ALTER TABLE 
+    posts
+  ADD CONSTRAINT 
+    post_length_ck CHECK (LENGTH(content) >= 1);
+$$);
