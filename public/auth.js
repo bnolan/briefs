@@ -1,19 +1,38 @@
-/* globals localStorage, alert, fetch */
+/* globals atob, localStorage, alert, fetch */
 
 import { html, Component } from 'https://unpkg.com/htm/preact/standalone.mjs'
 
 const JWT_KEY = 'jwt'
 
-const headers = {
+export const headers = {
   'Accept': 'application/json',
   'Content-Type': 'application/json'
 }
 
-export default class Auth extends Component {
+// User state
+export const user = {}
+
+// Load user state from jwt in localStorage
+if (localStorage.getItem(JWT_KEY)) {
+  let token = localStorage.getItem('jwt')
+
+  try {
+    Object.assign(user, JSON.parse(atob(token.split('.')[1])))
+    headers['Authorization'] = `Bearer ${token}`
+  } catch (e) {
+  }
+}
+
+export class Auth extends Component {
   constructor () {
     super()
 
-    this.state = { register: true }
+    this.state = { register: false, user }
+  }
+
+  async componentDidMount () {
+    let f = await fetch('/api/ping', { headers })
+    let r = await f.json()
   }
 
   onSubmit (e) {
@@ -24,6 +43,18 @@ export default class Auth extends Component {
     } else {
       this.login()
     }
+  }
+
+  logout (e) {
+    e.preventDefault()
+
+    localStorage.clear()
+
+    this.reload()
+  }
+
+  reload () {
+    window.location.reload()
   }
 
   async register (e) {
@@ -43,6 +74,7 @@ export default class Auth extends Component {
       alert(`Registration failed:\n\n${response.error}`)
     } else {
       localStorage.setItem(JWT_KEY, response.token)
+      this.reload()
     }
   }
 
@@ -62,10 +94,25 @@ export default class Auth extends Component {
       alert(`Login failed:\n\n${response.error}`)
     } else {
       localStorage.setItem(JWT_KEY, response.token)
+      this.reload()
     }
   }
 
   render () {
+    if (this.state.user.id) {
+      return html`
+        <div class='auth'>
+          <ul class='tabs'>
+            <li class='active'>${this.state.user.username}</li>
+          </ul>
+
+          <form onSubmit=${e => this.logout(e)}>
+            <button type='submit'>Logout</button>
+          </form>
+        </div>
+      `
+    }
+
     return html`
       <div class='auth'>
         <ul class='tabs'>
@@ -91,9 +138,6 @@ export default class Auth extends Component {
 
           ${this.state.register
             ? html`
-              <label>Confirm Password</label>
-              <input 
-                type='password' />
               <label>Email</label>
               <input 
                 type='email' 

@@ -49,7 +49,6 @@ $body$;
 -- Migrations
 --------------------------------------------------------------------------------
 
--- Email isn't unique because you can sign up multiple accounts (why not)
 SELECT apply_migration('create_users_table',
 $$
   CREATE EXTENSION citext;
@@ -60,13 +59,23 @@ $$
   CREATE DOMAIN username AS citext
     CHECK ( value ~ '^[a-zA-Z0-9_]{3,15}$' );
 
-  -- SELECT 'foobar@bar.com'::email;
-  -- SELECT CAST('foobar@bar.com' AS email);
-
   CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     username username unique,
     email email,
-    password text
+    password text,
+    created_at timestamp,
+    updated_at timestamp
+  );
+$$);
+
+SELECT apply_migration('create_posts_table',
+$$
+  CREATE TABLE posts (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id),
+    content varchar(500),
+    created_at timestamp,
+    updated_at timestamp
   );
 $$);

@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node-dev --respawn --transpileOnly index.ts",
+    "migrate": "cat migrations.sql | psql -v ON_ERROR_STOP=1 briefs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
