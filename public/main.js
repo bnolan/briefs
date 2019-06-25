@@ -5,6 +5,7 @@ import * as less from 'https://unpkg.com/less@3.8.1/dist/less.min.js'
 
 // Components
 import { Auth, user, headers } from './auth.js'
+import Linkify from './linkify.js'
 
 class NewPost extends Component {
   constructor () {
@@ -18,13 +19,15 @@ class NewPost extends Component {
 
     console.log(this.props)
 
-    this.props.addPost(this.state.body)
+    if (this.state.body.length > 0) {
+      this.props.addPost(this.state.body)
+    }
 
     this.setState({ body: '' })
   }
 
   onKeydown (e) {
-    if (e.keyCode === 13) {
+    if (e.keyCode === 13 && !e.shiftKey) {
       this.addPost(e)
     }
   }
@@ -50,7 +53,7 @@ class Post extends Component {
     return html`
       <div class='post'>
         <p class='meta'><span class='user'>${this.props.user.username}</span> · <span class='age'>${age}</span></p>
-        <p class='content'>${this.props.content}</p>
+        <${Linkify} text=${this.props.content} />
       </div>
     `
   }
