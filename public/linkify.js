@@ -12,14 +12,12 @@ export default class Linkify extends Component {
     let match
 
     while (match = re.exec(string)) {
-      console.log(match, match.index)
-
       // Push preceding text if there is any
       if (match.index > lastIndex) {
         elements.push(string.substring(lastIndex, match.index))
       }
 
-      elements.push(html`<a href='#'>${match}</a>`)
+      elements.push(html`<a href=${match}>${match}</a>`)
 
       lastIndex = re.lastIndex
     }
