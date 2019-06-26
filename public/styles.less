@@ -4,6 +4,9 @@
 @bright: #FFF1CC;
 @accent: #F38B5E;
 
+@mobile: ~"only screen and (max-width: 800px)";
+@desktop: ~"only screen and (min-width: 800px)";
+
 body{
   background-color: @pale;
   background-image: url('pattern.png');
@@ -19,8 +22,13 @@ body{
 .app{
   max-width: 800px;
   margin: auto;
-  display: flex;
-  flex-direction: row;
+
+  @media @mobile {
+  }
+  @media @desktop {
+    display: flex;
+    flex-direction: row;
+  }
 }
 
 .boxen {
@@ -32,7 +40,9 @@ body{
 }
 
 section:first-child {
-  width: 200px;
+  @media @desktop {
+    width: 200px;
+  }
 }
 
 section:last-child{
