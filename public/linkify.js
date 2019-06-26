@@ -6,7 +6,7 @@ export default class Linkify extends Component {
       return string
     }
 
-    const re = /\bhttps*:\/\/\S+\b/g
+    const re = /\s(https*:\/\/\S+|@\S+)\b/g
     const elements = []
     let lastIndex = 0
     let match
@@ -17,7 +17,14 @@ export default class Linkify extends Component {
         elements.push(string.substring(lastIndex, match.index))
       }
 
-      elements.push(html`<a href=${match}>${match}</a>`)
+      let url = match[1]
+      let text = match[1]
+
+      if (url.match(/^@/)) {
+        url = '/' + url.slice(1)
+      }
+
+      elements.push(html` <a href=${url}>${text}</a>`)
 
       lastIndex = re.lastIndex
     }

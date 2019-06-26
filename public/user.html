@@ -18,9 +18,10 @@
 
   <script type="module">
     import { html, render } from 'https://unpkg.com/htm/preact/standalone.mjs'
-    import { Feed } from './main.js'
+    import { User } from './main.js'
 
-    render(html`<${Feed} />`, document.body)
+    let username = window.location.pathname.split('/')[1]
+    render(html`<${User} username=${username}/>`, document.body)
   </script>
 
 </html>

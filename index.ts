@@ -2,6 +2,7 @@ import * as express from 'express'
 import { Client } from 'pg'
 import * as bcrypt from 'bcrypt'
 import * as jwt from 'jsonwebtoken'
+import * as path from 'path'
 
 const passport = require('passport')
 const ExtractJwt = require('passport-jwt').ExtractJwt
@@ -159,6 +160,35 @@ app.get('/api/feed', passport.authenticate('jwt', { session }), async (req, res)
   } catch (e) {
     res.json({ success: false, error: e.toString() })
   }
+})
+
+app.get('/api/feed/:username', async (req, res) => {
+  try {
+    const result = await client.query(`
+      select
+        posts.*,
+        json_build_object('id', users.id, 'username', users.username) as user
+      from
+        posts
+      inner join 
+        users on user_id = users.id
+      where
+        user_id in (select id from users where username = $1)
+      order by
+        created_at desc
+      limit
+        50
+      ;
+    `, [req.params.username])
+
+    res.json({ success: true, posts: result.rows })
+  } catch (e) {
+    res.json({ success: false, error: e.toString() })
+  }
+})
+
+app.get('/:username', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'user.html'))
 })
 
 // Start  listening
