@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node-dev --respawn --transpileOnly index.ts",
+    "server": "ts-node index.ts",
     "migrate": "cat migrations.sql | psql -v ON_ERROR_STOP=1 briefs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,6 +18,7 @@
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "pg": "^7.11.0",
+    "ts-node": "^8.3.0",
     "typescript": "^3.5.2"
   },
   "devDependencies": {

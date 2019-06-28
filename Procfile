@@ -1,0 +1,3 @@
+web: npm run server
+
+
