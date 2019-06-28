@@ -1,5 +1,5 @@
 import { html, Component } from '../vendor/preact.mjs'
-import Linkify from '../linkify.js'
+import Markup from '../markup.js'
 
 const timestamp = function (date) {
   var seconds = Math.floor((new Date() - date) / 1000)
@@ -33,7 +33,7 @@ export default class Post extends Component {
     return html`
       <div class='post'>
         <p class='meta'><a href=${'/' + this.props.user.username} class='user'>${this.props.user.username}</a> · <span class='age'>${age}</span></p>
-        <${Linkify} text=${this.props.content} />
+        <p class='content'><${Markup} text=${this.props.content} /></p>
       </div>
     `
   }
