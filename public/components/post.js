@@ -32,6 +32,7 @@ export default class Post extends Component {
 
     return html`
       <div class='post'>
+        <img src='/briefs.png' class='avatar' />
         <p class='meta'><a href=${'/' + this.props.user.username} class='user'>${this.props.user.username}</a> · <span class='age'>${age}</span></p>
         <p class='content'><${Markup} text=${this.props.content} /></p>
       </div>
