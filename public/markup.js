@@ -36,8 +36,6 @@ export default function Markup ({ text }) {
     elements.push(html`<${Linkify} text=${string.substring(lastIndex)} />`)
   }
 
-  console.log(elements)
-
   return (elements.length === 1) ? elements[0] : html`<span>${elements}</span>`
 }
 
