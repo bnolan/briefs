@@ -46,7 +46,7 @@ function Linkify ({ text }) {
     return string
   }
 
-  const re = /\s(https*:\/\/\S+|@[a-zA-Z0-0_]+)\b/g
+  const re = /\s(https*:\/\/\S+|@[a-zA-Z0-9_]+)\b/g
   const elements = []
   let lastIndex = 0
   let match
