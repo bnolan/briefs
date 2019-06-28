@@ -1,4 +1,4 @@
-import { html, Component  } from 'https://unpkg.com/htm/preact/standalone.mjs'
+import { html, Component  } from './vendor/preact.mjs'
 
 export default class Linkify extends Component {
   parseString (string) {
@@ -6,7 +6,7 @@ export default class Linkify extends Component {
       return string
     }
 
-    const re = /\s(https*:\/\/\S+|@\S+)\b/g
+    const re = /\s(https*:\/\/\S+|@[a-zA-Z0-0_]+)\b/g
     const elements = []
     let lastIndex = 0
     let match

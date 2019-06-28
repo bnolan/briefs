@@ -1,6 +1,6 @@
 /* globals fetch */
 
-import { html, Component } from 'https://unpkg.com/htm/preact/standalone.mjs'
+import { html, Component } from './vendor/preact.mjs'
 
 // Components
 import { Auth, user, headers } from './auth.js'

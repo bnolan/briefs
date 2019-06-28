@@ -1,6 +1,6 @@
 /* globals atob, localStorage, alert, fetch */
 
-import { html, Component } from 'https://unpkg.com/htm/preact/standalone.mjs'
+import { html, Component } from './vendor/preact.mjs'
 
 const JWT_KEY = 'jwt'
 

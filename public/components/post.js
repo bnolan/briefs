@@ -1,4 +1,4 @@
-import { html, Component } from 'https://unpkg.com/htm/preact/standalone.mjs'
+import { html, Component } from '../vendor/preact.mjs'
 import Linkify from '../linkify.js'
 
 const timestamp = function (date) {
