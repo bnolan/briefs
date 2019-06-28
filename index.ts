@@ -3,6 +3,7 @@ import { Client } from 'pg'
 import * as bcrypt from 'bcrypt'
 import * as jwt from 'jsonwebtoken'
 import * as path from 'path'
+import * as enforce from 'express-sslify'
 
 const passport = require('passport')
 const ExtractJwt = require('passport-jwt').ExtractJwt
@@ -24,6 +25,11 @@ const session = false
 
 // Create express
 const app = express()
+
+// Force SSL
+if (process.env.NODE_ENV === 'production') {
+  app.use(enforce.HTTPS({ trustProtoHeader: true }))
+}
 
 // HTML and Javascript
 app.use(express.static('public'))
