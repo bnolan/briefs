@@ -74,6 +74,12 @@ header{
 .new-post{
   text-align: right;
 
+  p.reply{
+    text-align: left;
+    font-size: 0.8em;
+    margin: 0 0 4px 0;
+  }
+
   textarea{
     font: inherit;
     width: 100%;
@@ -136,7 +142,8 @@ header{
 .post{
   border-bottom: 1px solid @pale;
   font-size: 0.9em;
-  margin: 8px 0;
+  padding: 8px 0 0 0;
+  margin: 0;
 
   .meta{
     color: #aaa;
@@ -160,6 +167,50 @@ header{
       padding: 4px;
       color: #555;
       background: #f3f3f3;
+    }
+  }
+
+  &.active{
+    background: lighten(@bright, 5%);
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 3px rgba(0,0,0,0.2);
+    position: relative;
+    padding: 8px;
+  }
+
+  &.active .actions{
+    display: flex;
+  }
+
+  .actions{
+    display: none;
+    flex-direction: row;
+    position: absolute;
+    bottom: -32px;
+    right: 8px;
+
+    margin: 0;
+    padding: 0;
+
+    li:first-child{
+      border-left: 1px solid #ccc;
+    }
+
+    li:hover{
+      color: black;
+    }
+    li{
+      cursor: pointer;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      color: #aaa;
+      border-right: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+      line-height: 32px;
+      background: lighten(@bright, 5%);
+      padding: 0 8px;
+      box-shadow: 2px 2px 3px rgba(0,0,0,0.2);
     }
   }
 }
