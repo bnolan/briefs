@@ -27,13 +27,30 @@ const timestamp = function (date) {
 }
 
 export default class Post extends Component {
+  toggle () {
+    this.setState({ active: !this.state.active })
+
+    if (Post.active) {
+      Post.active.setState({ active: false })
+    }
+
+    if (this.state.active) {
+      Post.active = this
+    } else {
+      Post.active = null
+    }
+  }
+
   render () {
     let age = timestamp(new Date(this.props.created_at))
 
     return html`
-      <div class='post'>
+      <div class=${`post ${this.state.active && 'active'}`} onClick=${e => this.toggle()}>
         <p class='meta'><a href=${'/' + this.props.user.username} class='user'>${this.props.user.username}</a> · <span class='age'>${age}</span></p>
         <p class='content'><${Markup} text=${this.props.content} /></p>
+        <ul class='actions'>
+          <li onClick=${e => this.props.onReply(this.props)}>↵</li>
+        </ul>
       </div>
     `
   }

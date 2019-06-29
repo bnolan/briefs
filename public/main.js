@@ -44,6 +44,14 @@ export class Feed extends Component {
     let r = await f.json()
 
     this.fetch()
+
+    this.setState({ replyTo: null })
+  }
+
+  onReply (post) {
+    this.setState({ replyTo: post })
+
+    setTimeout(() => document.querySelector('.new-post textarea').focus(), 50)
   }
 
   render ({ page }, { posts }) {
@@ -57,11 +65,11 @@ export class Feed extends Component {
 
         <section>
           <div class='new-post'>
-            <${NewPost} addPost=${this.addPost.bind(this)} />
+            <${NewPost} replyTo=${this.state.replyTo} addPost=${this.addPost.bind(this)} />
           </div>
 
           <div class='posts'>
-            ${posts.map(post => html`<${Post} ...${post} />`)}
+            ${posts.map(post => html`<${Post} onReply=${this.onReply.bind(this)} ...${post} />`)}
           </div>
         </section>
       </div>

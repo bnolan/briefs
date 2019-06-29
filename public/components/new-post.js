@@ -28,11 +28,13 @@ export default class NewPost extends Component {
   render () {
     return html`
       <form>
+        ${ this.props.replyTo ? html`<p class='reply'>In reply to <b>@${this.props.replyTo.user.username}</b></p>` : null }
+
         <textarea 
           value=${this.state.body}
           onInput=${e => this.setState({ body: e.target.value })}
           onKeyDown=${e => this.onKeydown(e)}
-          placeholder='What is happening?' />
+          placeholder=${this.props.replyTo ? 'Reply...' : 'What is happening?'} />
         <button onClick=${e => this.addPost(e)}>Post</button>
       </form>
     `
